@@ -6,6 +6,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.ckt.cyl.listmaster.db.ListSchema.ListTable;
+
 /**
  * Created by D22434 on 2017/8/1.
  */
@@ -21,7 +23,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL("create table " + ListTable.NAME + "(" +
+                " _id integer primary key autoincrement, " +
+                ListTable.Cols.UUID + ", " +
+                ListTable.Cols.TITLE + ", " +
+                ListTable.Cols.DATE + ", " +
+                ListTable.Cols.TIME + ", " +
+                ListTable.Cols.SUSPECT + ", " +
+                ListTable.Cols.NUMBER +
+                ")");
     }
 
     @Override
