@@ -16,6 +16,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="清单大师"
         android:textColor="?android:textColorPrimary"
         android:textSize="24sp" />
@@ -24,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="当前完成项..."
+        android:text="时间管理APP"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 

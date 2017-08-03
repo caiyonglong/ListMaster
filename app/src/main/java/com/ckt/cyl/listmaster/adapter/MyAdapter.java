@@ -9,20 +9,16 @@
 package com.ckt.cyl.listmaster.adapter;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.content.res.Resources;
-import android.content.res.XmlResourceParser;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 
+import com.ckt.cyl.listmaster.DetailActivity;
 import com.ckt.cyl.listmaster.R;
 import com.ckt.cyl.listmaster.Record;
 import com.ckt.cyl.listmaster.databinding.ListItemRecordBinding;
@@ -47,6 +43,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         }
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (position % 4 == 0) {
+            return 2;
+        } else {
+            return 1;
+        }
+
+    }
+
+
     public void setmRecords(List<Record> mRecords) {
         this.mRecords = mRecords;
     }
@@ -58,6 +65,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         ListItemRecordBinding itemRecordBinding = DataBindingUtil
                 .inflate(LayoutInflater.from(mContext), R.layout.list_item_record, parent, false);
 
@@ -66,9 +74,25 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Record record = mRecords.get(position);
-        holder.bind(record);
 
+
+        int type = getItemViewType(position);
+        if (type == 1) {
+            holder.mBinding.tag.setVisibility(View.GONE);
+        } else {
+            holder.mBinding.tag.setVisibility(View.VISIBLE);
+        }
+        final Record record = mRecords.get(position);
+        holder.bind(record);
+        holder.mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("record", record);
+                Intent it = DetailActivity.newIntent(mContext, bundle);
+                mContext.startActivity(it);
+            }
+        });
     }
 
     @Override
@@ -88,13 +112,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         public void bind(Record record) {
             mBinding.setRecord(record);
-
-            mBinding.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                }
-            });
 
 
         }

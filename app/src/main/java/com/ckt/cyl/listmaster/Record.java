@@ -11,13 +11,14 @@ package com.ckt.cyl.listmaster;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
  * Created by D22434 on 2017/8/2.
  */
 
-public class Record extends BaseObservable {
+public class Record extends BaseObservable implements Serializable {
 
     private String id;
     private String title;

@@ -13,8 +13,6 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
 
     protected abstract Fragment createFragment();
 
-    public ActivityFragmentBinding mBinding;
-
     protected abstract void createView();
 
     @LayoutRes
@@ -26,7 +24,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, getLayoutResId());
+        setContentView(getLayoutResId());
         createView();
 
         FragmentManager fm = getSupportFragmentManager();

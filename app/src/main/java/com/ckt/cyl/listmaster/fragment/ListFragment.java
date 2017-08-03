@@ -1,6 +1,8 @@
-package com.ckt.cyl.listmaster;
+package com.ckt.cyl.listmaster.fragment;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -13,6 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ckt.cyl.listmaster.DetailActivity;
+import com.ckt.cyl.listmaster.R;
+import com.ckt.cyl.listmaster.Record;
 import com.ckt.cyl.listmaster.adapter.MyAdapter;
 import com.ckt.cyl.listmaster.databinding.FragmentListMasterBinding;
 
@@ -26,6 +31,7 @@ import java.util.List;
 
 
 public class ListFragment extends Fragment {
+    public static final String KEY_FRAGMENT = "ListFragment";
     private static final String TAG = "ListFragment";
     private FragmentListMasterBinding binding;
     private ItemTouchHelper.Callback mITCallback;
@@ -36,10 +42,10 @@ public class ListFragment extends Fragment {
     //阈值
     private int mScrollThreshold = 0;
 
-    public static ListFragment newInstance() {
+    public static ListFragment newInstance(int key) {
 
         Bundle args = new Bundle();
-
+        args.putInt(KEY_FRAGMENT, key);
         ListFragment fragment = new ListFragment();
         fragment.setArguments(args);
         return fragment;
@@ -51,8 +57,8 @@ public class ListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil
                 .inflate(inflater, R.layout.fragment_list_master, container, false);
-
-        for (int i = 0; i < 20; i++) {
+        int ii = getArguments().getInt(KEY_FRAGMENT);
+        for (int i = 0; i < ii; i++) {
             Record record = new Record(i);
             mRecords.add(record);
         }
@@ -65,8 +71,8 @@ public class ListFragment extends Fragment {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = DetailActivity.newIntent(getActivity());
+                startActivity(i);
             }
         });
 
@@ -120,10 +126,20 @@ public class ListFragment extends Fragment {
 
                 if (direction == ItemTouchHelper.LEFT) {
                     myAdapter.notifyItemRemoved(position);
+
                 } else {
                     //删除数据
                     mRecords.remove(position);
                     myAdapter.notifyItemRemoved(position);
+
+                }
+            }
+
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+
                 }
             }
         };
@@ -131,25 +147,8 @@ public class ListFragment extends Fragment {
 
         itemTouchHelper.attachToRecyclerView(binding.recyclerView);
 
-
         return binding.getRoot();
     }
 
-    /**
-     * 更新RecyclerView,显示最新状态
-     */
-    public void updateUI() {
-
-
-        if (myAdapter == null) {
-            myAdapter = new MyAdapter(getActivity(), mRecords);
-            binding.recyclerView.setAdapter(myAdapter);
-        } else {
-            myAdapter.setmRecords(mRecords);
-            myAdapter.notifyDataSetChanged();
-//            mAdapter.notifyItemChanged(positionClicked);
-        }
-
-    }
 
 }

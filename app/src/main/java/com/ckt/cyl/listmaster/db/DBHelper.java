@@ -27,10 +27,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 " _id integer primary key autoincrement, " +
                 ListTable.Cols.UUID + ", " +
                 ListTable.Cols.TITLE + ", " +
-                ListTable.Cols.DATE + ", " +
+                ListTable.Cols.CONTENT + ", " +
                 ListTable.Cols.TIME + ", " +
-                ListTable.Cols.SUSPECT + ", " +
-                ListTable.Cols.NUMBER +
+                ListTable.Cols.REPEAT + ", " +
+                ListTable.Cols.REPEAT_TIMES + ", " +
+                ListTable.Cols.STATUS + ", " +
+                ListTable.Cols.SCHEDULE +
                 ")");
     }
 
