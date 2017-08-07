@@ -11,6 +11,7 @@ package com.ckt.cyl.listmaster.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import android.widget.CompoundButton;
 import com.ckt.cyl.listmaster.DetailActivity;
 import com.ckt.cyl.listmaster.R;
 import com.ckt.cyl.listmaster.Record;
+import com.ckt.cyl.listmaster.databinding.ListItemKindBinding;
 import com.ckt.cyl.listmaster.databinding.ListItemRecordBinding;
 
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ import java.util.List;
  * Created by D22434 on 2017/8/2.
  */
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private List<Record> mRecords = new ArrayList<>();
 
@@ -45,12 +47,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (position % 4 == 0) {
-            return 2;
-        } else {
-            return 1;
-        }
-
+        return Integer.parseInt(mRecords.get(position).getTag());
     }
 
 
@@ -64,35 +61,40 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        ListItemRecordBinding itemRecordBinding = DataBindingUtil
-                .inflate(LayoutInflater.from(mContext), R.layout.list_item_record, parent, false);
+        if (viewType == 1) {
+            ListItemRecordBinding itemRecordBinding = DataBindingUtil
+                    .inflate(LayoutInflater.from(mContext), R.layout.list_item_record, parent, false);
 
-        return new MyViewHolder(itemRecordBinding);
+            return new MyViewHolder(itemRecordBinding);
+        } else {
+            ListItemKindBinding itemKindBinding = DataBindingUtil
+                    .inflate(LayoutInflater.from(mContext), R.layout.list_item_kind, parent, false);
+            return new TypeHolder(itemKindBinding);
+        }
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof MyViewHolder) {
+            MyViewHolder mHolder = (MyViewHolder) holder;
+            final Record record = mRecords.get(position);
+            mHolder.bind(record);
+            mHolder.mBinding.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("record", record);
+                    Intent it = DetailActivity.newIntent(mContext, bundle);
+                    mContext.startActivity(it);
+                }
+            });
+        } else if (holder instanceof TypeHolder) {
 
-
-        int type = getItemViewType(position);
-        if (type == 1) {
-            holder.mBinding.tag.setVisibility(View.GONE);
-        } else {
-            holder.mBinding.tag.setVisibility(View.VISIBLE);
         }
-        final Record record = mRecords.get(position);
-        holder.bind(record);
-        holder.mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("record", record);
-                Intent it = DetailActivity.newIntent(mContext, bundle);
-                mContext.startActivity(it);
-            }
-        });
+
+
     }
 
     @Override
@@ -110,10 +112,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             mBinding = binding;
         }
 
+
         public void bind(Record record) {
             mBinding.setRecord(record);
-
-
         }
+    }
+
+    public class TypeHolder extends RecyclerView.ViewHolder {
+
+        private ListItemKindBinding mBinding;
+
+        public TypeHolder(ListItemKindBinding binding) {
+            super(binding.getRoot());
+            mBinding = binding;
+        }
+
     }
 }

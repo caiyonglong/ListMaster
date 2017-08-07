@@ -23,6 +23,7 @@ public class Record extends BaseObservable implements Serializable {
     private String id;
     private String title;
     private String content;
+    private String tag;
     private String time;
     private String repeat;
     private String repeat_num;
@@ -55,6 +56,15 @@ public class Record extends BaseObservable implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public String getContent() {
