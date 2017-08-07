@@ -41,6 +41,10 @@ public class Record extends BaseObservable implements Serializable {
         schedule = (int) (Math.random() * 100);
     }
 
+    public Record() {
+
+    }
+
     public String getId() {
         return id;
     }

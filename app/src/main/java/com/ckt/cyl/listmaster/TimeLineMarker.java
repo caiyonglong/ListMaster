@@ -2,6 +2,7 @@ package com.ckt.cyl.listmaster;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -31,6 +32,24 @@ public class TimeLineMarker extends View {
         super(context, attrs, defStyle);
         init(attrs);
     }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        if (mBeginLine != null) {
+            mBeginLine.draw(canvas);
+        }
+
+        if (mEndLine != null) {
+            mEndLine.draw(canvas);
+        }
+
+        if (mMarkerDrawable != null) {
+            mMarkerDrawable.draw(canvas);
+        }
+
+        super.onDraw(canvas);
+    }
+
 
     private void init(AttributeSet attrs) {
         // Load attributes
@@ -159,6 +178,6 @@ public class TimeLineMarker extends View {
             invalidate();
         }
     }
-    
+
 
 }

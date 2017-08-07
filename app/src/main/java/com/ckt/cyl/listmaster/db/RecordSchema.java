@@ -6,10 +6,10 @@ package com.ckt.cyl.listmaster.db;
  * Created by D22434 on 2017/7/24.
  */
 
-public class ListSchema {
+public class RecordSchema {
 
-    public static final class ListTable {
-        public static final String NAME = "listMaster";
+    public static final class RecordTable {
+        public static final String NAME = "record";
 
         public static final class Cols {
 
@@ -21,7 +21,10 @@ public class ListSchema {
             public static final String REPEAT_TIMES = "repeat_times";
             public static final String STATUS = "status";
             public static final String SCHEDULE = "schedule";
+
+
         }
+
 
     }
 }

@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.ckt.cyl.listmaster.databinding.ActivityDetailBinding;
 import com.ckt.cyl.listmaster.databinding.ActivityMainBinding;
+import com.ckt.cyl.listmaster.fragment.LifeFragment;
 import com.ckt.cyl.listmaster.fragment.ListFragment;
 
 public class MainActivity extends SingleFragmentActivity
@@ -101,6 +102,11 @@ public class MainActivity extends SingleFragmentActivity
             case R.id.nav_manage:
                 fragment = ListFragment.newInstance(12);
                 Snackbar.make(mBinding.getRoot(), "nav_manage", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                break;
+            case R.id.nav_live:
+                fragment = LifeFragment.newInstance(12);
+                Snackbar.make(mBinding.getRoot(), "nav_live", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 break;
             case R.id.nav_settings:

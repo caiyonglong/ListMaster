@@ -24,6 +24,7 @@ import com.ckt.cyl.listmaster.R;
 import com.ckt.cyl.listmaster.Record;
 import com.ckt.cyl.listmaster.databinding.ListItemKindBinding;
 import com.ckt.cyl.listmaster.databinding.ListItemRecordBinding;
+import com.ckt.cyl.listmaster.databinding.ListItemTimeBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,11 +46,6 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return Integer.parseInt(mRecords.get(position).getTag());
-    }
-
 
     public void setmRecords(List<Record> mRecords) {
         this.mRecords = mRecords;
@@ -63,16 +59,21 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        if (viewType == 1) {
-            ListItemRecordBinding itemRecordBinding = DataBindingUtil
-                    .inflate(LayoutInflater.from(mContext), R.layout.list_item_record, parent, false);
+//        if (viewType == 1) {
+        ListItemRecordBinding itemRecordBinding = DataBindingUtil
+                .inflate(LayoutInflater.from(mContext), R.layout.list_item_record, parent, false);
 
-            return new MyViewHolder(itemRecordBinding);
-        } else {
-            ListItemKindBinding itemKindBinding = DataBindingUtil
-                    .inflate(LayoutInflater.from(mContext), R.layout.list_item_kind, parent, false);
-            return new TypeHolder(itemKindBinding);
-        }
+        return new MyViewHolder(itemRecordBinding);
+//        } else {
+//            ListItemKindBinding itemKindBinding = DataBindingUtil
+//                    .inflate(LayoutInflater.from(mContext), R.layout.list_item_kind, parent, false);
+//            return new TypeHolder(itemKindBinding);
+//        }
+
+//        ListItemTimeBinding itemTimeBinding = DataBindingUtil
+//                .inflate(LayoutInflater.from(mContext), R.layout.list_item_time, parent, false);
+//
+//        return new TimeHolder(itemTimeBinding);
     }
 
     @Override
@@ -92,6 +93,25 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             });
         } else if (holder instanceof TypeHolder) {
 
+        } else if (holder instanceof TimeHolder) {
+//            TimeHolder mHolder = (TimeHolder) holder;
+//            final Record record = mRecords.get(position);
+//            if (position == 0) {
+//                mHolder.mBinding.itemTimeLineMark.setBeginLine(null);
+//            } else if (position == mRecords.size() - 1) {
+//                mHolder.mBinding.itemTimeLineMark.setEndLine(null);
+//            }
+//            mHolder.mBinding.setRecord(record);
+//
+//            mHolder.mBinding.cardView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Bundle bundle = new Bundle();
+//                    bundle.putSerializable("record", record);
+//                    Intent it = DetailActivity.newIntent(mContext, bundle);
+//                    mContext.startActivity(it);
+//                }
+//            });
         }
 
 
@@ -127,5 +147,20 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mBinding = binding;
         }
 
+    }
+
+
+    public class TimeHolder extends RecyclerView.ViewHolder {
+
+        private ListItemTimeBinding mBinding;
+
+        public TimeHolder(ListItemTimeBinding binding) {
+            super(binding.getRoot());
+            mBinding = binding;
+        }
+
+        public void bind(Record record) {
+            mBinding.setRecord(record);
+        }
     }
 }

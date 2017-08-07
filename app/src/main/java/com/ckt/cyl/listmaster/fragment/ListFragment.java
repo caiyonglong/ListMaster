@@ -20,6 +20,7 @@ import com.ckt.cyl.listmaster.R;
 import com.ckt.cyl.listmaster.Record;
 import com.ckt.cyl.listmaster.adapter.MyAdapter;
 import com.ckt.cyl.listmaster.databinding.FragmentListMasterBinding;
+import com.ckt.cyl.listmaster.db.RecordLab;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,9 +59,12 @@ public class ListFragment extends Fragment {
         binding = DataBindingUtil
                 .inflate(inflater, R.layout.fragment_list_master, container, false);
         int ii = getArguments().getInt(KEY_FRAGMENT);
+
+        RecordLab recordLab = RecordLab.get(getActivity());
         for (int i = 0; i < ii; i++) {
             Record record = new Record(i);
             mRecords.add(record);
+            recordLab.addRecord(record);
         }
         myAdapter = new MyAdapter(getActivity(), mRecords);
         //列表
