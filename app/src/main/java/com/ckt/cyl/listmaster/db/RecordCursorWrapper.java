@@ -24,7 +24,9 @@ public class RecordCursorWrapper extends CursorWrapper {
         String uuid = getString(getColumnIndex(RecordTable.Cols.UUID));
         String title = getString(getColumnIndex(RecordTable.Cols.TITLE));
 
-        Record record =new Record();
+        Record record = new Record();
+        record.setId(uuid);
+        record.setTitle(title);
         return record;
     }
 }

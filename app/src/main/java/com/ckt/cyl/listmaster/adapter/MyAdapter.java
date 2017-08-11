@@ -11,13 +11,11 @@ package com.ckt.cyl.listmaster.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 
 import com.ckt.cyl.listmaster.DetailActivity;
 import com.ckt.cyl.listmaster.R;
@@ -37,14 +35,6 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private List<Record> mRecords = new ArrayList<>();
 
-
-    public MyAdapter(Context context) {
-        mContext = context;
-        for (int i = 0; i < 10; i++) {
-            Record record = new Record(i);
-            mRecords.add(record);
-        }
-    }
 
 
     public void setmRecords(List<Record> mRecords) {

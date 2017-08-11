@@ -6,33 +6,36 @@
             android:id="@+id/nav_today"
             android:icon="@drawable/ic_today"
             android:title="今天" />
+
+        <item
+            android:id="@+id/nav_live"
+            android:title="生活" />
+        <item
+            android:id="@+id/nav_work"
+            android:title="工作" />
+        <item
+            android:id="@+id/nav_study"
+            android:title="学习" />
+
         <item
             android:id="@+id/nav_chart"
             android:icon="@drawable/ic_show_chart"
             android:title="上周统计" />
-        <item
-            android:id="@+id/nav_add"
-            android:icon="@drawable/ic_list_add"
-            android:title="新增清单" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_library"
-            android:title="清单管理" />
 
         <item
             android:id="@+id/nav_category"
             android:checked="true"
-            android:title="清单分类">
+            android:title="清单">
             <menu>
                 <item
-                    android:id="@+id/nav_live"
-                    android:title="生活" />
+                    android:id="@+id/nav_manage"
+                    android:icon="@drawable/ic_library"
+                    android:title="清单管理" />
                 <item
-                    android:id="@+id/nav_work"
-                    android:title="工作" />
-                <item
-                    android:id="@+id/nav_study"
-                    android:title="学习" />
+                    android:id="@+id/nav_add"
+                    android:icon="@drawable/ic_list_add"
+                    android:title="新增清单" />
+
             </menu>
         </item>
 
@@ -41,7 +44,6 @@
     <group android:menuCategory="system">
         <item android:title="其他">
             <menu>
-
                 <item
                     android:id="@+id/nav_settings"
                     android:icon="@drawable/ic_settings"

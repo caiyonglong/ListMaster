@@ -17,10 +17,10 @@ public class RecordSchema {
             public static final String TITLE = "title";
             public static final String CONTENT = "content";
             public static final String TIME = "time";
-            public static final String REPEAT = "repeat";
-            public static final String REPEAT_TIMES = "repeat_times";
+            public static final String DATE = "date";
+            public static final String MODE = "mode";
             public static final String STATUS = "status";
-            public static final String SCHEDULE = "schedule";
+            public static final String LEVEL = "level";
 
 
         }

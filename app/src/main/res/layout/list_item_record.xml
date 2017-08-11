@@ -27,8 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:buttonTint="@color/blue_A400"
-            android:checked="@{record.status}"
-            android:text="@{`Hello world` +record.title}"
+            android:checked="false"
+            android:text="@{record.title}"
             app:buttonTint="@color/colorPrimary" />
 
 

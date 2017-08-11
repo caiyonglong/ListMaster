@@ -1,11 +1,9 @@
 package com.ckt.cyl.listmaster.fragment;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ckt.cyl.listmaster.DetailActivity;
 import com.ckt.cyl.listmaster.R;
 import com.ckt.cyl.listmaster.Record;
 import com.ckt.cyl.listmaster.adapter.MyAdapter;
@@ -61,11 +58,8 @@ public class ListFragment extends Fragment {
         int ii = getArguments().getInt(KEY_FRAGMENT);
 
         RecordLab recordLab = RecordLab.get(getActivity());
-        for (int i = 0; i < ii; i++) {
-            Record record = new Record(i);
-            mRecords.add(record);
-            recordLab.addRecord(record);
-        }
+        mRecords = recordLab.getmRecords();
+
         myAdapter = new MyAdapter(getActivity(), mRecords);
         //列表
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -75,8 +69,12 @@ public class ListFragment extends Fragment {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = DetailActivity.newIntent(getActivity());
-                startActivity(i);
+//                FragmentManager fm = getFragmentManager();
+//                fm.beginTransaction()
+//                        .add(R.id.fragment_container, NewRecordFragment.newInstance())
+//                        .addSharedElement(view, "sendButton")
+//                        .addToBackStack(null)
+//                        .commit();
             }
         });
 
@@ -154,5 +152,33 @@ public class ListFragment extends Fragment {
         return binding.getRoot();
     }
 
+    /**
+     * 更新RecyclerView,显示最新状态
+     */
+    public void updateUI() {
+        RecordLab recordLab = RecordLab.get(getActivity());
+        mRecords = recordLab.getmRecords();
+
+        if (mRecords.size() == 0) {
+            binding.tvEmpty.setVisibility(View.VISIBLE);
+            binding.tvEmpty.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                }
+            });
+        } else {
+            binding.tvEmpty.setVisibility(View.GONE);
+        }
+
+        if (myAdapter == null) {
+            myAdapter = new MyAdapter(getActivity(), mRecords);
+            binding.recyclerView.setAdapter(myAdapter);
+        } else {
+            myAdapter.setmRecords(mRecords);
+            myAdapter.notifyDataSetChanged();
+//            mAdapter.notifyItemChanged(positionClicked);
+        }
+
+    }
 
 }

@@ -36,10 +36,9 @@ public class LifeFragment extends Fragment {
     //阈值
     private int mScrollThreshold = 0;
 
-    public static LifeFragment newInstance(int key) {
+    public static LifeFragment newInstance() {
 
         Bundle args = new Bundle();
-        args.putInt(KEY_FRAGMENT, key);
         LifeFragment fragment = new LifeFragment();
         fragment.setArguments(args);
         return fragment;
@@ -51,14 +50,10 @@ public class LifeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil
                 .inflate(inflater, R.layout.fragment_list_master, container, false);
-        int ii = getArguments().getInt(KEY_FRAGMENT);
 
         RecordLab recordLab = RecordLab.get(getActivity());
-        for (int i = 0; i < ii; i++) {
-            Record record = new Record(i);
-            mRecords.add(record);
-            recordLab.addRecord(record);
-        }
+        mRecords = recordLab.getmRecords();
+
         timeAdapter = new TimeAdapter(getActivity(), mRecords);
         //列表
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

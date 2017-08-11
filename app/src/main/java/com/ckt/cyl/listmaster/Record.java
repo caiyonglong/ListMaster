@@ -20,29 +20,31 @@ import java.util.UUID;
 
 public class Record extends BaseObservable implements Serializable {
 
+    /**
+     * uuid、 title、content、time、date、mode、status、level
+     */
+
     private String id;
+    //记录
     private String title;
+    //详细描述
     private String content;
-    private String tag;
+    //创建日期
     private String time;
-    private String repeat;
-    private String repeat_num;
+    //提醒日期
+    private String date;
+    //重复模式
+    private String mode;
     //状态
     private boolean status;
-    //进度
-    private int schedule;
+    //重要等级
+    private int level;
 
-    public Record(int i) {
-        id = UUID.randomUUID().toString();
-        title = "0" + i;
-        content = "content";
-
-        status = Math.random() > 0.5;
-        schedule = (int) (Math.random() * 100);
-    }
+    //分类
+    private int category;
 
     public Record() {
-
+        id = UUID.randomUUID().toString();
     }
 
     public String getId() {
@@ -63,14 +65,6 @@ public class Record extends BaseObservable implements Serializable {
     }
 
 
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
     public String getContent() {
         return content;
     }
@@ -87,20 +81,20 @@ public class Record extends BaseObservable implements Serializable {
         this.time = time;
     }
 
-    public String getRepeat() {
-        return repeat;
+    public String getDate() {
+        return date;
     }
 
-    public void setRepeat(String repeat) {
-        this.repeat = repeat;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getRepeat_num() {
-        return repeat_num;
+    public String getMode() {
+        return mode;
     }
 
-    public void setRepeat_num(String repeat_num) {
-        this.repeat_num = repeat_num;
+    public void setMode(String mode) {
+        this.mode = mode;
     }
 
     public boolean isStatus() {
@@ -111,11 +105,25 @@ public class Record extends BaseObservable implements Serializable {
         this.status = status;
     }
 
-    public int getSchedule() {
-        return schedule;
+    public int getLevel() {
+        return level;
     }
 
-    public void setSchedule(int schedule) {
-        this.schedule = schedule;
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    @Override
+    public String toString() {
+        return "Record{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", time='" + time + '\'' +
+                ", date='" + date + '\'' +
+                ", mode='" + mode + '\'' +
+                ", status=" + status +
+                ", level=" + level +
+                '}';
     }
 }

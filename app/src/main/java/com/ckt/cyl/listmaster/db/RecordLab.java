@@ -9,6 +9,7 @@ import com.ckt.cyl.listmaster.Record;
 import com.ckt.cyl.listmaster.db.RecordSchema.RecordTable;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -138,6 +139,10 @@ public class RecordLab {
         ContentValues values = new ContentValues();
         values.put(RecordTable.Cols.UUID, Record.getId().toString());
         values.put(RecordTable.Cols.TITLE, Record.getTitle());
+
+
+        values.put(RecordTable.Cols.TIME, new Date().getTime());
+
         return values;
     }
 

@@ -2,23 +2,23 @@ package com.ckt.cyl.listmaster;
 
 import android.databinding.DataBindingUtil;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.ckt.cyl.listmaster.databinding.ActivityDetailBinding;
 import com.ckt.cyl.listmaster.databinding.ActivityMainBinding;
 import com.ckt.cyl.listmaster.fragment.LifeFragment;
 import com.ckt.cyl.listmaster.fragment.ListFragment;
+import com.ckt.cyl.listmaster.fragment.NewRecordFragment;
 
 public class MainActivity extends SingleFragmentActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, NewRecordFragment.CallBacks {
 
     ActivityMainBinding mBinding;
 
@@ -36,13 +36,19 @@ public class MainActivity extends SingleFragmentActivity
     protected void createView() {
         mBinding = DataBindingUtil.setContentView(this, getLayoutResId());
 
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction()
+                .add(R.id.fragment_bottom, NewRecordFragment.newInstance())
+                .commit();
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -53,6 +59,7 @@ public class MainActivity extends SingleFragmentActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -93,37 +100,41 @@ public class MainActivity extends SingleFragmentActivity
                 break;
             case R.id.nav_chart:
                 fragment = ListFragment.newInstance(5);
-                Snackbar.make(mBinding.getRoot(), "nav_chart", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
                 break;
             case R.id.nav_add:
                 fragment = ListFragment.newInstance(8);
                 break;
             case R.id.nav_manage:
                 fragment = ListFragment.newInstance(12);
-                Snackbar.make(mBinding.getRoot(), "nav_manage", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
                 break;
             case R.id.nav_live:
-                fragment = LifeFragment.newInstance(12);
-                Snackbar.make(mBinding.getRoot(), "nav_live", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                fragment = LifeFragment.newInstance();
                 break;
             case R.id.nav_settings:
                 fragment = ListFragment.newInstance(20);
-                Snackbar.make(mBinding.getRoot(), "nav_settings", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
                 break;
         }
 
+        Log.e("----------------------", item.getTitle().toString());
         if (fragment != null) {
             fm.beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
+                    .replace(R.id.fragment_container, fragment, item.getTitle().toString())
                     .commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    @Override
+    public void onRecordUpdated(Record record) {
+
+        ListFragment listFragment = (ListFragment) getSupportFragmentManager()
+                .findFragmentByTag("今天");
+        if (listFragment != null) {
+            listFragment.updateUI();
+        }
     }
 }

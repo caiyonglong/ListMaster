@@ -6,8 +6,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.ckt.cyl.listmaster.Record;
-import com.ckt.cyl.listmaster.db.RecordSchema.RecordTable;
 import com.ckt.cyl.listmaster.db.RecordSchema.RecordTable;
 
 /**
@@ -15,6 +13,19 @@ import com.ckt.cyl.listmaster.db.RecordSchema.RecordTable;
  */
 
 public class RecordBaseHelper extends SQLiteOpenHelper {
+
+    /**
+     * 数据库字段名
+     * _id	记录ID
+     * uuid	标志ID
+     * title	标题
+     * content	内容
+     * time	创建时间
+     * date	日期
+     * status	状态（是否完成）
+     * cycle	周期
+     */
+
     private static final int VERSION = 1;
 
     private static final String DATABASE_NAME = "listMaster.db";
@@ -31,10 +42,10 @@ public class RecordBaseHelper extends SQLiteOpenHelper {
                 RecordTable.Cols.TITLE + ", " +
                 RecordTable.Cols.CONTENT + ", " +
                 RecordTable.Cols.TIME + ", " +
-                RecordTable.Cols.REPEAT + ", " +
-                RecordTable.Cols.REPEAT_TIMES + ", " +
+                RecordTable.Cols.DATE + ", " +
+                RecordTable.Cols.MODE + ", " +
                 RecordTable.Cols.STATUS + ", " +
-                RecordTable.Cols.SCHEDULE +
+                RecordTable.Cols.LEVEL +
                 ")");
     }
 

@@ -20,8 +20,6 @@ import android.view.ViewGroup;
 import com.ckt.cyl.listmaster.DetailActivity;
 import com.ckt.cyl.listmaster.R;
 import com.ckt.cyl.listmaster.Record;
-import com.ckt.cyl.listmaster.databinding.ListItemKindBinding;
-import com.ckt.cyl.listmaster.databinding.ListItemRecordBinding;
 import com.ckt.cyl.listmaster.databinding.ListItemTimeBinding;
 
 import java.util.ArrayList;
@@ -35,14 +33,6 @@ public class TimeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private List<Record> mRecords = new ArrayList<>();
 
-
-    public TimeAdapter(Context context) {
-        mContext = context;
-        for (int i = 0; i < 10; i++) {
-            Record record = new Record(i);
-            mRecords.add(record);
-        }
-    }
 
 
     public void setmRecords(List<Record> mRecords) {
