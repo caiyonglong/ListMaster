@@ -56,7 +56,6 @@ public class TimeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         }
 
-
     }
 
     @Override
