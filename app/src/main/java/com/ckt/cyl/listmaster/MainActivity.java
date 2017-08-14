@@ -36,12 +36,6 @@ public class MainActivity extends SingleFragmentActivity
     protected void createView() {
         mBinding = DataBindingUtil.setContentView(this, getLayoutResId());
 
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction()
-                .add(R.id.fragment_bottom, NewRecordFragment.newInstance())
-                .commit();
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

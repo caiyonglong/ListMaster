@@ -12,6 +12,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -30,9 +31,9 @@ public class Record extends BaseObservable implements Serializable {
     //详细描述
     private String content;
     //创建日期
-    private String time;
+    private Date time;
     //提醒日期
-    private String date;
+    private Date date;
     //重复模式
     private String mode;
     //状态
@@ -73,19 +74,19 @@ public class Record extends BaseObservable implements Serializable {
         this.content = content;
     }
 
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

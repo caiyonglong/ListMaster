@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -40,6 +41,8 @@ public class ListFragment extends Fragment {
     //阈值
     private int mScrollThreshold = 0;
 
+    private NewRecordFragment newRecordFragment = null;
+
     public static ListFragment newInstance(int key) {
 
         Bundle args = new Bundle();
@@ -55,9 +58,8 @@ public class ListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil
                 .inflate(inflater, R.layout.fragment_list_master, container, false);
-        int ii = getArguments().getInt(KEY_FRAGMENT);
 
-        RecordLab recordLab = RecordLab.get(getActivity());
+        final RecordLab recordLab = RecordLab.get(getActivity());
         mRecords = recordLab.getmRecords();
 
         myAdapter = new MyAdapter(getActivity(), mRecords);
@@ -69,12 +71,15 @@ public class ListFragment extends Fragment {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                FragmentManager fm = getFragmentManager();
-//                fm.beginTransaction()
-//                        .add(R.id.fragment_container, NewRecordFragment.newInstance())
-//                        .addSharedElement(view, "sendButton")
-//                        .addToBackStack(null)
-//                        .commit();
+                FragmentManager fm = getFragmentManager();
+                if (newRecordFragment == null) {
+                    newRecordFragment = NewRecordFragment.newInstance();
+                }
+                fm.beginTransaction()
+                        .add(R.id.fragment_container, newRecordFragment)
+                        .addSharedElement(view, "sendButton")
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
@@ -107,7 +112,6 @@ public class ListFragment extends Fragment {
 
         mITCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
 
-
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 //拖动功能，
@@ -132,6 +136,7 @@ public class ListFragment extends Fragment {
                 } else {
                     //删除数据
                     mRecords.remove(position);
+                    recordLab.deleteRecord(mRecords.get(position));
                     myAdapter.notifyItemRemoved(position);
 
                 }
@@ -161,11 +166,6 @@ public class ListFragment extends Fragment {
 
         if (mRecords.size() == 0) {
             binding.tvEmpty.setVisibility(View.VISIBLE);
-            binding.tvEmpty.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                }
-            });
         } else {
             binding.tvEmpty.setVisibility(View.GONE);
         }
@@ -176,9 +176,13 @@ public class ListFragment extends Fragment {
         } else {
             myAdapter.setmRecords(mRecords);
             myAdapter.notifyDataSetChanged();
-//            mAdapter.notifyItemChanged(positionClicked);
         }
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
 }

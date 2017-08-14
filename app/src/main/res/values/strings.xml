@@ -14,5 +14,8 @@
     <string name="time">time</string>
     <string name="repeat">repeat</string>
     <string name="remind">remind</string>
+    <string name="time_picker_title">select time</string>
+    <string name="date_picker_title">select date</string>
+    <string name="action_delete">delete</string>
 
 </resources>

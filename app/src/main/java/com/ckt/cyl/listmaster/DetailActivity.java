@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import com.ckt.cyl.listmaster.fragment.LifeFragment;
+import com.ckt.cyl.listmaster.fragment.RecordFragment;
 
 public class DetailActivity extends SingleFragmentActivity {
     private static final String EXTRA_PARAM = "extra_param";
@@ -23,12 +23,13 @@ public class DetailActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment() {
-        return LifeFragment.newInstance();
+        return RecordFragment
+                .newInstance((Record) getIntent()
+                        .getBundleExtra(EXTRA_PARAM).getSerializable("record"));
     }
 
     @Override
     protected void createView() {
 
     }
-
 }

@@ -50,7 +50,7 @@ public class RecordLab {
      */
     public List<Record> getmRecords() {
         List<Record> Records = new ArrayList<>();
-        RecordCursorWrapper cursor = queryRecords(null, null);
+        RecordCursorWrapper cursor = queryRecords(null, null, "time desc");
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -73,7 +73,7 @@ public class RecordLab {
 
         RecordCursorWrapper cursor = queryRecords(
                 RecordTable.Cols.UUID + " = ?",
-                new String[]{id.toString()});
+                new String[]{id.toString()}, "time desc");
         try {
             if (cursor.getCount() == 0) {
                 return null;
@@ -116,7 +116,7 @@ public class RecordLab {
      * @param whereArgs
      * @return
      */
-    private RecordCursorWrapper queryRecords(String whereClause, String[] whereArgs) {
+    private RecordCursorWrapper queryRecords(String whereClause, String[] whereArgs, String orderBy) {
         Cursor cursor = mDataBase.query(
                 RecordTable.NAME,
                 null,
@@ -124,7 +124,7 @@ public class RecordLab {
                 whereArgs,
                 null,
                 null,
-                null
+                orderBy
         );
         return new RecordCursorWrapper(cursor);
     }
@@ -132,17 +132,19 @@ public class RecordLab {
     /**
      * 封装contentValues
      *
-     * @param Record
+     * @param record
      * @return
      */
-    private static ContentValues getContentValues(Record Record) {
+    private static ContentValues getContentValues(Record record) {
         ContentValues values = new ContentValues();
-        values.put(RecordTable.Cols.UUID, Record.getId().toString());
-        values.put(RecordTable.Cols.TITLE, Record.getTitle());
-
-
+        values.put(RecordTable.Cols.UUID, record.getId());
+        values.put(RecordTable.Cols.TITLE, record.getTitle());
+        values.put(RecordTable.Cols.CONTENT, record.getContent());
         values.put(RecordTable.Cols.TIME, new Date().getTime());
-
+        values.put(RecordTable.Cols.DATE, new Date().getTime());
+        values.put(RecordTable.Cols.MODE, record.getMode());
+        values.put(RecordTable.Cols.STATUS, record.isStatus() ? 1 : 0);
+        values.put(RecordTable.Cols.LEVEL, record.getLevel());
         return values;
     }
 

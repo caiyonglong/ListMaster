@@ -22,8 +22,7 @@
         <activity
             android:name=".DetailActivity"
             android:label="@string/title_activity_detail"
-            android:parentActivityName="com.ckt.cyl.listmaster.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:parentActivityName="com.ckt.cyl.listmaster.MainActivity"/>
     </application>
 
 </manifest>

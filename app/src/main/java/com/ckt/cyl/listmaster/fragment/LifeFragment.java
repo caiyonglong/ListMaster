@@ -66,5 +66,9 @@ public class LifeFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
+    }
 }
