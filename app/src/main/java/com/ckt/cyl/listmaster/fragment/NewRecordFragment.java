@@ -4,7 +4,6 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.transition.AutoTransition;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,14 +64,14 @@ public class NewRecordFragment extends BaseFragment {
         mBinding.send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String content = mBinding.etContent.getText().toString();
+                String title = mBinding.etContent.getText().toString();
 
                 Record record = new Record();
-                record.setTitle(content);
+                record.setTitle(title);
 
                 RecordLab recordLab = RecordLab.get(getActivity());
                 recordLab.addRecord(record);
-                Snackbar.make(v, "新增  " + content, Snackbar.LENGTH_SHORT).show();
+
                 mBinding.etContent.setText("");
                 mCallbacks.onRecordUpdated(record);
                 hideInput(v);

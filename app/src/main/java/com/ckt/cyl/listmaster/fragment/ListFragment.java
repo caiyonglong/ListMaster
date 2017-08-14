@@ -110,7 +110,7 @@ public class ListFragment extends Fragment {
         });
 
 
-        mITCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+        mITCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT) {
 
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -130,10 +130,7 @@ public class ListFragment extends Fragment {
 
                 Log.e(TAG, "direction = " + direction);
 
-                if (direction == ItemTouchHelper.LEFT) {
-                    myAdapter.notifyItemRemoved(position);
-
-                } else {
+                if (direction == ItemTouchHelper.RIGHT) {
                     //删除数据
                     mRecords.remove(position);
                     recordLab.deleteRecord(mRecords.get(position));
@@ -146,7 +143,7 @@ public class ListFragment extends Fragment {
             public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
                 if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-
+                    Log.d("swipe ---", dX + "---" + dY + "------" + actionState + "---" + isCurrentlyActive);
                 }
             }
         };

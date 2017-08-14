@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.ckt.cyl.listmaster.R;
 import com.ckt.cyl.listmaster.utils.TimeUtil;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -50,7 +51,6 @@ public class DatePickerFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mDate = (Date) getArguments().getSerializable(ARG_DATE);
 
-
         //加载布局
         View v = LayoutInflater.from(getActivity())
                 .inflate(R.layout.dialog_date, null);
@@ -63,7 +63,11 @@ public class DatePickerFragment extends DialogFragment {
         mCalendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                mDate = new GregorianCalendar(year, month, dayOfMonth).getTime();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(mDate);
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int minute = calendar.get(Calendar.MINUTE);
+                mDate = new GregorianCalendar(year, month, dayOfMonth, hour, minute).getTime();
                 updateUI();
             }
         });
@@ -96,7 +100,6 @@ public class DatePickerFragment extends DialogFragment {
 
     /**
      * 更新UI
-     *
      */
     private void updateUI() {
         mTextView.setText(TimeUtil.TimeFormat(mDate) + " " + TimeUtil.HMFormat(mDate));

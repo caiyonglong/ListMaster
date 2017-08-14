@@ -10,6 +10,7 @@ public class RecordSchema {
 
     public static final class RecordTable {
         public static final String NAME = "record";
+        public static final String CONSUMPTION_NAME = "consumption";
 
         public static final class Cols {
 
@@ -22,6 +23,11 @@ public class RecordSchema {
             public static final String STATUS = "status";
             public static final String LEVEL = "level";
 
+
+            /**
+             * 消费表
+             */
+            public static final String MONEY = "money";
 
         }
 

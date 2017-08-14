@@ -47,6 +47,13 @@ public class RecordBaseHelper extends SQLiteOpenHelper {
                 RecordTable.Cols.STATUS + ", " +
                 RecordTable.Cols.LEVEL +
                 ")");
+        db.execSQL("create table " + RecordTable.CONSUMPTION_NAME + "(" +
+                " _id integer primary key autoincrement, " +
+                RecordTable.Cols.UUID + ", " +
+                RecordTable.Cols.TITLE + ", " +
+                RecordTable.Cols.TIME + ", " +
+                RecordTable.Cols.MONEY +
+                ")");
     }
 
     @Override

@@ -149,8 +149,5 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mBinding = binding;
         }
 
-        public void bind(Record record) {
-            mBinding.setRecord(record);
-        }
     }
 }

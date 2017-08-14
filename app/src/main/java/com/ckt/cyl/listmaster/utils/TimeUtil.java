@@ -3,6 +3,7 @@ package com.ckt.cyl.listmaster.utils;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class TimeUtil {
@@ -30,4 +31,9 @@ public class TimeUtil {
         return dateFormat.format(date);
     }
 
+    public static String DateHMFormat(Date date) {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        return dateFormat.format(date);
+    }
 }

@@ -9,20 +9,16 @@
 package com.ckt.cyl.listmaster.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ckt.cyl.listmaster.DetailActivity;
 import com.ckt.cyl.listmaster.R;
 import com.ckt.cyl.listmaster.Record;
 import com.ckt.cyl.listmaster.databinding.ListItemTimeBinding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,17 +27,9 @@ import java.util.List;
 
 public class TimeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
-    private List<Record> mRecords = new ArrayList<>();
-
-
-
-    public void setmRecords(List<Record> mRecords) {
-        this.mRecords = mRecords;
-    }
 
     public TimeAdapter(Context context, List<Record> records) {
         mContext = context;
-        mRecords = records;
     }
 
     @Override
@@ -57,23 +45,15 @@ public class TimeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof TimeHolder) {
             TimeHolder mHolder = (TimeHolder) holder;
-            final Record record = mRecords.get(position);
             if (position == 0) {
-                mHolder.mBinding.itemTimeLineMark.setBeginLine(null);
-            } else if (position == mRecords.size() - 1) {
-                mHolder.mBinding.itemTimeLineMark.setEndLine(null);
+                mHolder.mBinding.startLine.setVisibility(View.GONE);
+            } else if (position == 20 - 1) {
+                mHolder.mBinding.endLine.setVisibility(View.GONE);
+            } else {
+                mHolder.mBinding.startLine.setVisibility(View.VISIBLE);
+                mHolder.mBinding.endLine.setVisibility(View.VISIBLE);
             }
-            mHolder.mBinding.setRecord(record);
 
-            mHolder.mBinding.cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("record", record);
-                    Intent it = DetailActivity.newIntent(mContext, bundle);
-                    mContext.startActivity(it);
-                }
-            });
         }
 
 
@@ -81,7 +61,7 @@ public class TimeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mRecords.size();
+        return 20;
     }
 
 
@@ -94,8 +74,5 @@ public class TimeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mBinding = binding;
         }
 
-        public void bind(Record record) {
-            mBinding.setRecord(record);
-        }
     }
 }
