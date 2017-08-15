@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.ckt.cyl.listmaster.LRecord;
 import com.ckt.cyl.listmaster.Record;
 import com.ckt.cyl.listmaster.db.RecordSchema.RecordTable;
 
@@ -62,6 +63,19 @@ public class RecordLab {
         }
         return Records;
     }
+
+    /**
+     * 返回LRecord列表
+     */
+    public List<LRecord> getmLRecords() {
+        List<LRecord> lRecords = new ArrayList<>();
+        for (int i = 0; i < 1; i++) {
+            LRecord lRecord = new LRecord("吃饭", new Date(), 30);
+            lRecords.add(lRecord);
+        }
+        return lRecords;
+    }
+
 
     /**
      * 根据UUID 查找record

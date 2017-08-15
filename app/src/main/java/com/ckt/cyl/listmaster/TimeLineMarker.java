@@ -95,26 +95,28 @@ public class TimeLineMarker extends View {
     private void initDrawableSize() {
         int pLeft = getPaddingLeft();
         int pRight = getPaddingRight();
-        int pTop = getPaddingTop();
-        int pBottom = getPaddingBottom();
+//        int pTop = getPaddingTop();
+//        int pBottom = getPaddingBottom();
+
 
         int width = getWidth();
         int height = getHeight();
 
         int cWidth = width - pLeft - pRight;
-        int cHeight = height - pTop - pBottom;
+//        int cHeight = height - pTop - pBottom;
+        int cHeight = height / 2;
 
         Rect bounds;
 
         if (mMarkerDrawable != null) {
             // Size
             int markerSize = Math.min(mMarkerSize, Math.min(cWidth, cHeight));
-            mMarkerDrawable.setBounds(pLeft, pTop,
-                    pLeft + markerSize, pTop + markerSize);
+            mMarkerDrawable.setBounds(pLeft, cHeight - markerSize / 2,
+                    pLeft + markerSize, cHeight + markerSize / 2);
 
             bounds = mMarkerDrawable.getBounds();
         } else {
-            bounds = new Rect(pLeft, pTop, pLeft + cWidth, pTop + cHeight);
+            bounds = new Rect(pLeft,  cHeight - mMarkerSize / 2, pLeft + cWidth, cHeight + mMarkerSize / 2);
         }
 
 

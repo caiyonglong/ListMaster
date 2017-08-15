@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ckt.cyl.listmaster.LRecord;
 import com.ckt.cyl.listmaster.R;
-import com.ckt.cyl.listmaster.Record;
 import com.ckt.cyl.listmaster.adapter.TimeAdapter;
 import com.ckt.cyl.listmaster.databinding.FragmentListMasterBinding;
 import com.ckt.cyl.listmaster.db.RecordLab;
@@ -31,7 +31,7 @@ public class LifeFragment extends Fragment {
     private ItemTouchHelper.Callback mITCallback;
     //适配器
     private TimeAdapter timeAdapter;
-    private List<Record> mRecords = new ArrayList<>();
+    private List<LRecord> mRecords = new ArrayList<>();
 
     //阈值
     private int mScrollThreshold = 0;
@@ -52,7 +52,7 @@ public class LifeFragment extends Fragment {
                 .inflate(inflater, R.layout.fragment_list_master, container, false);
 
         RecordLab recordLab = RecordLab.get(getActivity());
-        mRecords = recordLab.getmRecords();
+        mRecords = recordLab.getmLRecords();
 
         timeAdapter = new TimeAdapter(getActivity(), mRecords);
         //列表

@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="consumption"
-            type="com.ckt.cyl.listmaster.Consumption" />
+            name="lRecord"
+            type="com.ckt.cyl.listmaster.LRecord" />
     </data>
 
 
@@ -15,84 +15,57 @@
 
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="100dp"
         android:orientation="horizontal"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         tools:ignore="MissingPrefix">
 
-        <!--<com.ckt.cyl.listmaster.TimeLineMarker-->
-        <!--android:id="@+id/item_time_line_mark"-->
-        <!--android:layout_width="56dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:paddingBottom="16dp"-->
-        <!--android:paddingLeft="4dp"-->
-        <!--android:paddingRight="4dp"-->
-        <!--android:paddingTop="16dp"-->
-        <!--app:beginLine="#000"-->
-        <!--app:endLine="#000"-->
-        <!--app:lineSize="0.5dp"-->
-        <!--app:marker="@drawable/ic_timeline_default_marker"-->
-        <!--app:markerSize="24dp" />-->
-
-        <RelativeLayout
-            android:id="@+id/time_line"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:orientation="vertical">
-
-                <View
-                    android:id="@+id/start_line"
-                    android:layout_width="1dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:background="@color/amber_600" />
-
-                <View
-                    android:id="@+id/end_line"
-                    android:layout_width="1dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:background="@color/blue_grey_400" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/marker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@drawable/ic_timeline_default_marker" />
-
-        </RelativeLayout>
+        <com.ckt.cyl.listmaster.TimeLineMarker
+            android:id="@+id/item_time_line_mark"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            app:beginLine="#000"
+            app:endLine="#000"
+            app:lineSize="0.5dp"
+            app:marker="@drawable/ic_timeline_default_marker"
+            app:markerSize="40dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="2017/8/14" />
 
-
-            <TextView
-                android:id="@+id/title"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:text="aaaaaaaa"
-                android:textColor="#000"
-                android:textSize="16sp" />
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@{lRecord.title}"
+                    android:textColor="#000"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="4dp"
+                    android:text="2017年8月15" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/money"
@@ -100,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:text="20"
+                android:text="@{` `+lRecord.money}"
                 android:textColor="@color/amber_600"
                 android:textSize="30sp" />
 

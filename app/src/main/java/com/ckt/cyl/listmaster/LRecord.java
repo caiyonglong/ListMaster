@@ -9,6 +9,9 @@
 package com.ckt.cyl.listmaster;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+
+import com.ckt.cyl.listmaster.utils.TimeUtil;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -18,7 +21,7 @@ import java.util.UUID;
  * Created by D22434 on 2017/8/2.
  */
 
-public class Consumption extends BaseObservable implements Serializable {
+public class LRecord extends BaseObservable implements Serializable {
 
     /**
      * id、title、time、money
@@ -31,8 +34,15 @@ public class Consumption extends BaseObservable implements Serializable {
     //消费金额
     private int money;
 
-    public Consumption() {
+    public LRecord() {
         id = UUID.randomUUID().toString();
+    }
+
+    public LRecord(String title, Date time, int money) {
+        id = UUID.randomUUID().toString();
+        this.title = title;
+        this.time = time;
+        this.money = money;
     }
 
     public String getId() {
@@ -69,7 +79,7 @@ public class Consumption extends BaseObservable implements Serializable {
 
     @Override
     public String toString() {
-        return "Consumption{" +
+        return "LRecord{" +
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", time=" + time +
