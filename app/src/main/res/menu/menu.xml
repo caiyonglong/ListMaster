@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_today"
+        android:icon="@drawable/ic_today"
+        android:title="今天" />
+
+    <item
+        android:id="@+id/nav_live"
+        android:title="生活" />
+    <item
+        android:id="@+id/nav_work"
+        android:title="工作" />
+    <item
+        android:id="@+id/nav_study"
+        android:title="学习" />
+
+    <item
+        android:id="@+id/nav_chart"
+        android:icon="@drawable/ic_show_chart"
+        android:title="上周统计" />
+
+
+</menu>

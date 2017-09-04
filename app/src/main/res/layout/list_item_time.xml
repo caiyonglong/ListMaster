@@ -24,14 +24,13 @@
         <com.ckt.cyl.listmaster.TimeLineMarker
             android:id="@+id/item_time_line_mark"
             android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            app:beginLine="#000"
-            app:endLine="#000"
-            app:lineSize="0.5dp"
-            app:marker="@drawable/ic_timeline_default_marker"
-            app:markerSize="40dp" />
+            android:layout_height="match_parent"
+            app:beginLine="@color/blue_grey_400"
+            app:endLine="@color/blue_grey_400"
+            app:lineSize="2dp"
+            app:marker="@color/amber_600"
+            app:markerSize="11dp"
+            app:outer="@color/amber_900" />
 
         <RelativeLayout
             android:layout_width="match_parent"

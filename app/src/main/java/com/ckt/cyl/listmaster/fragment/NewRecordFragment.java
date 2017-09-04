@@ -26,7 +26,7 @@ public class NewRecordFragment extends BaseFragment {
     FragmentNewRecordBinding mBinding;
 
     public interface CallBacks {
-        void onRecordUpdated(Record record);
+        void onRecordUpdated();
     }
 
 
@@ -73,7 +73,7 @@ public class NewRecordFragment extends BaseFragment {
                 recordLab.addRecord(record);
 
                 mBinding.etContent.setText("");
-                mCallbacks.onRecordUpdated(record);
+                mCallbacks.onRecordUpdated();
                 hideInput(v);
                 onBackPressed();
 

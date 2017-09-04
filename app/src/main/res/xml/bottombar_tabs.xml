@@ -1,0 +1,15 @@
+<tabs>
+    <tab
+        id="@+id/tab_today"
+        icon="@drawable/ic_today"
+        title="今日" />
+    <tab
+        id="@+id/tab_work"
+        title="工作" />
+    <tab
+        id="@+id/tab_life"
+        title="生活" />
+    <tab
+        id="@+id/tab_other"
+        title="其他" />
+</tabs>

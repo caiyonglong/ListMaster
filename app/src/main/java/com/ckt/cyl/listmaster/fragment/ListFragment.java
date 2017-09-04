@@ -1,11 +1,11 @@
 package com.ckt.cyl.listmaster.fragment;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ckt.cyl.listmaster.NewRecordActivity;
 import com.ckt.cyl.listmaster.R;
 import com.ckt.cyl.listmaster.Record;
 import com.ckt.cyl.listmaster.adapter.MyAdapter;
@@ -38,15 +39,15 @@ public class ListFragment extends Fragment {
     private MyAdapter myAdapter;
     private List<Record> mRecords = new ArrayList<>();
 
+    private RecordLab recordLab;
     //阈值
     private int mScrollThreshold = 0;
 
     private NewRecordFragment newRecordFragment = null;
 
-    public static ListFragment newInstance(int key) {
+    public static ListFragment newInstance() {
 
         Bundle args = new Bundle();
-        args.putInt(KEY_FRAGMENT, key);
         ListFragment fragment = new ListFragment();
         fragment.setArguments(args);
         return fragment;
@@ -59,7 +60,7 @@ public class ListFragment extends Fragment {
         binding = DataBindingUtil
                 .inflate(inflater, R.layout.fragment_list_master, container, false);
 
-        final RecordLab recordLab = RecordLab.get(getActivity());
+        recordLab = RecordLab.get(getActivity());
         mRecords = recordLab.getmRecords();
 
         myAdapter = new MyAdapter(getActivity(), mRecords);
@@ -71,15 +72,8 @@ public class ListFragment extends Fragment {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fm = getFragmentManager();
-                if (newRecordFragment == null) {
-                    newRecordFragment = NewRecordFragment.newInstance();
-                }
-                fm.beginTransaction()
-                        .add(R.id.fragment_container, newRecordFragment)
-                        .addSharedElement(view, "sendButton")
-                        .addToBackStack(null)
-                        .commit();
+                Intent intent = NewRecordActivity.newIntent(getActivity());
+                startActivity(intent);
             }
         });
 
@@ -182,4 +176,5 @@ public class ListFragment extends Fragment {
         super.onResume();
         updateUI();
     }
+
 }

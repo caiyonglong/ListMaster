@@ -17,5 +17,6 @@
     <string name="time_picker_title">select time</string>
     <string name="date_picker_title">select date</string>
     <string name="action_delete">delete</string>
+    <string name="new_record">新建</string>
 
 </resources>

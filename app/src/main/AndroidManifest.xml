@@ -22,7 +22,11 @@
         <activity
             android:name=".DetailActivity"
             android:label="@string/title_activity_detail"
-            android:parentActivityName="com.ckt.cyl.listmaster.MainActivity"/>
+            android:parentActivityName="com.ckt.cyl.listmaster.MainActivity" />
+        <activity
+            android:name=".NewRecordActivity"
+            android:label="@string/new_record"
+            android:parentActivityName="com.ckt.cyl.listmaster.MainActivity" />
     </application>
 
 </manifest>

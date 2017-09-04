@@ -70,12 +70,12 @@ public class TimeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             super(binding.getRoot());
             mBinding = binding;
             if (viewType == ATOM) {
-                mBinding.itemTimeLineMark.setBeginLine(null);
-                mBinding.itemTimeLineMark.setEndLine(null);
+                mBinding.itemTimeLineMark.setBeginLine(false);
+                mBinding.itemTimeLineMark.setEndLine(false);
             } else if (viewType == START) {
-                mBinding.itemTimeLineMark.setBeginLine(null);
+                mBinding.itemTimeLineMark.setBeginLine(false);
             } else if (viewType == END) {
-                mBinding.itemTimeLineMark.setEndLine(null);
+                mBinding.itemTimeLineMark.setEndLine(false);
             }
         }
 
@@ -83,6 +83,7 @@ public class TimeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mBinding.setLRecord(record);
         }
     }
+
 
     @Override
     public int getItemViewType(int position) {

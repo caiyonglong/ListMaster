@@ -3,8 +3,8 @@ package com.ckt.cyl.listmaster;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -14,11 +14,23 @@ import android.view.View;
 
 public class TimeLineMarker extends View {
 
-    private int mMarkerSize = 24;
+    private int mMarkerSize;
+    private int mMarkerColor = Color.BLUE;
+    private int mMarkerOuter = Color.BLUE;
     private int mLineSize = 12;
-    private Drawable mBeginLine;
-    private Drawable mEndLine;
-    private Drawable mMarkerDrawable;
+    private int mBeginLine = Color.GRAY;
+    private int mEndLine = Color.GRAY;
+
+    private boolean showBegin = true, showEnd = true;
+
+
+    private Paint mBeginPaint;
+    private Paint mEndPaint;
+    private Paint mPaint;
+    private Paint mCirclePaint;
+
+    private float x, y, r;
+
 
     public TimeLineMarker(Context context) {
         this(context, null);
@@ -33,109 +45,91 @@ public class TimeLineMarker extends View {
         init(attrs);
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        if (mBeginLine != null) {
-            mBeginLine.draw(canvas);
-        }
-
-        if (mEndLine != null) {
-            mEndLine.draw(canvas);
-        }
-
-        if (mMarkerDrawable != null) {
-            mMarkerDrawable.draw(canvas);
-        }
-
-        super.onDraw(canvas);
-    }
-
-
+    /**
+     * 加载自定义属性
+     *
+     * @param attrs
+     */
     private void init(AttributeSet attrs) {
-        // Load attributes
         final TypedArray a = getContext().obtainStyledAttributes(
                 attrs, R.styleable.TimeLineMarker, 0, 0);
 
-        mMarkerSize = a.getDimensionPixelSize(
-                R.styleable.TimeLineMarker_markerSize,
-                mMarkerSize);
+        mMarkerSize = a.getDimensionPixelSize(R.styleable.TimeLineMarker_markerSize, mMarkerSize);
+        mLineSize = a.getDimensionPixelSize(R.styleable.TimeLineMarker_lineSize, mLineSize);
+        mBeginLine = a.getColor(R.styleable.TimeLineMarker_beginLine, mBeginLine);
+        mEndLine = a.getColor(R.styleable.TimeLineMarker_endLine, mEndLine);
+        mMarkerColor = a.getColor(R.styleable.TimeLineMarker_marker, mMarkerColor);
+        mMarkerOuter = a.getColor(R.styleable.TimeLineMarker_outer, mMarkerOuter);
 
-        mLineSize = a.getDimensionPixelSize(
-                R.styleable.TimeLineMarker_lineSize,
-                mLineSize);
 
-        mBeginLine = a.getDrawable(
-                R.styleable.TimeLineMarker_beginLine);
+        mBeginPaint = new Paint();
+        mBeginPaint.setColor(mBeginLine);
+        mBeginPaint.setStrokeWidth(2);
+        mBeginPaint.setStyle(Paint.Style.STROKE);
+        mBeginPaint.setAntiAlias(true);
 
-        mEndLine = a.getDrawable(
-                R.styleable.TimeLineMarker_endLine);
 
-        mMarkerDrawable = a.getDrawable(
-                R.styleable.TimeLineMarker_marker);
+        mEndPaint = new Paint();
+        mEndPaint.setColor(mEndLine);
+        mEndPaint.setStrokeWidth(2);
+        mEndPaint.setStyle(Paint.Style.STROKE);
+        mEndPaint.setAntiAlias(true);
+
+        mPaint = new Paint();
+        mPaint.setColor(mMarkerColor);
+        mPaint.setStrokeWidth(1);
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setAntiAlias(true);
+
+        mCirclePaint = new Paint();
+        mCirclePaint.setColor(mMarkerOuter);
+        mCirclePaint.setStrokeWidth(3);
+        mCirclePaint.setStyle(Paint.Style.STROKE);
+        mCirclePaint.setAntiAlias(true);
 
         a.recycle();
-
-        if (mBeginLine != null)
-            mBeginLine.setCallback(this);
-
-        if (mEndLine != null)
-            mEndLine.setCallback(this);
-
-        if (mMarkerDrawable != null)
-            mMarkerDrawable.setCallback(this);
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        initDrawableSize();
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        x = measure(widthMeasureSpec) / 2;
+        y = measure(heightMeasureSpec) / 2;
+        r = 20;
+
     }
 
-
-    private void initDrawableSize() {
-        int pLeft = getPaddingLeft();
-        int pRight = getPaddingRight();
-//        int pTop = getPaddingTop();
-//        int pBottom = getPaddingBottom();
-
-
-        int width = getWidth();
-        int height = getHeight();
-
-        int cWidth = width - pLeft - pRight;
-//        int cHeight = height - pTop - pBottom;
-        int cHeight = height / 2;
-
-        Rect bounds;
-
-        if (mMarkerDrawable != null) {
-            // Size
-            int markerSize = Math.min(mMarkerSize, Math.min(cWidth, cHeight));
-            mMarkerDrawable.setBounds(pLeft, cHeight - markerSize / 2,
-                    pLeft + markerSize, cHeight + markerSize / 2);
-
-            bounds = mMarkerDrawable.getBounds();
+    protected int measure(int measureSpec) {
+        int size = 0;
+        int measureMode = MeasureSpec.getMode(measureSpec);
+        if (measureMode == MeasureSpec.UNSPECIFIED) {
+            size = 250;
         } else {
-            bounds = new Rect(pLeft,  cHeight - mMarkerSize / 2, pLeft + cWidth, cHeight + mMarkerSize / 2);
+            size = MeasureSpec.getSize(measureSpec);
         }
+        return size;
 
-
-        int halfLineSize = mLineSize >> 1;
-        int lineLeft = bounds.centerX() - halfLineSize;
-
-        if (mBeginLine != null) {
-            mBeginLine.setBounds(lineLeft, 0, lineLeft + mLineSize, bounds.top);
-        }
-
-        if (mEndLine != null) {
-            mEndLine.setBounds(lineLeft, bounds.bottom, lineLeft + mLineSize, height);
-        }
     }
 
+    @Override
+    protected void onDraw(Canvas canvas) {
+
+
+        if (showBegin)
+            canvas.drawLine(x, y, x, 0, mBeginPaint);
+
+        if (showEnd)
+            canvas.drawLine(x, y, x, y * 2, mEndPaint);
+
+        canvas.drawCircle(x, y, r, mPaint);
+        canvas.drawCircle(x, y, r, mCirclePaint);
+
+        super.onDraw(canvas);
+    }
+    
     public void setLineSize(int lineSize) {
         if (mLineSize != lineSize) {
             this.mLineSize = lineSize;
-            initDrawableSize();
             invalidate();
         }
     }
@@ -143,42 +137,18 @@ public class TimeLineMarker extends View {
     public void setMarkerSize(int markerSize) {
         if (this.mMarkerSize != markerSize) {
             mMarkerSize = markerSize;
-            initDrawableSize();
             invalidate();
         }
     }
 
-    public void setBeginLine(Drawable beginLine) {
-        if (this.mBeginLine != beginLine) {
-            this.mBeginLine = beginLine;
-            if (mBeginLine != null) {
-                mBeginLine.setCallback(this);
-            }
-            initDrawableSize();
-            invalidate();
-        }
+    public void setBeginLine(boolean isShow) {
+        showBegin = isShow;
+        invalidate();
     }
 
-    public void setEndLine(Drawable endLine) {
-        if (this.mEndLine != endLine) {
-            this.mEndLine = endLine;
-            if (mEndLine != null) {
-                mEndLine.setCallback(this);
-            }
-            initDrawableSize();
-            invalidate();
-        }
-    }
-
-    public void setMarkerDrawable(Drawable markerDrawable) {
-        if (this.mMarkerDrawable != markerDrawable) {
-            this.mMarkerDrawable = markerDrawable;
-            if (mMarkerDrawable != null) {
-                mMarkerDrawable.setCallback(this);
-            }
-            initDrawableSize();
-            invalidate();
-        }
+    public void setEndLine(boolean isShow) {
+        showEnd = isShow;
+        invalidate();
     }
 
 
