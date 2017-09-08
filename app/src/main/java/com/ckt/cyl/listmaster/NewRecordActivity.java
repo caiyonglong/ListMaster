@@ -11,7 +11,8 @@ import com.ckt.cyl.listmaster.fragment.NewRecordFragment;
  * Created by D22434 on 2017/9/4.
  */
 
-public class NewRecordActivity extends SingleFragmentActivity {
+public class NewRecordActivity extends SingleFragmentActivity
+        implements NewRecordFragment.CallBacks {
     private static final String EXTRA_PARAM = "extra_param";
 
     public static Intent newIntent(Context packageContext, Bundle bundle) {
@@ -32,6 +33,11 @@ public class NewRecordActivity extends SingleFragmentActivity {
 
     @Override
     protected void createView() {
+
+    }
+
+    @Override
+    public void onRecordUpdated() {
 
     }
 }

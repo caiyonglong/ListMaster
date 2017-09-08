@@ -26,7 +26,8 @@
         <activity
             android:name=".NewRecordActivity"
             android:label="@string/new_record"
-            android:parentActivityName="com.ckt.cyl.listmaster.MainActivity" />
+            android:parentActivityName="com.ckt.cyl.listmaster.MainActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
     </application>
 
 </manifest>

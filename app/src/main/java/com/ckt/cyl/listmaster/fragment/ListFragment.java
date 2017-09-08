@@ -73,7 +73,7 @@ public class ListFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = NewRecordActivity.newIntent(getActivity());
-                startActivity(intent);
+                getActivity().startActivity(intent);
             }
         });
 
@@ -121,15 +121,14 @@ public class ListFragment extends Fragment {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
 
-
-                Log.e(TAG, "direction = " + direction);
-
                 if (direction == ItemTouchHelper.RIGHT) {
                     //删除数据
-                    mRecords.remove(position);
                     recordLab.deleteRecord(mRecords.get(position));
                     myAdapter.notifyItemRemoved(position);
-
+                    mRecords.remove(position);
+                    if (mRecords.size() == 0) {
+                        updateUI();
+                    }
                 }
             }
 

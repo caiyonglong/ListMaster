@@ -44,7 +44,6 @@ public class LifeFragment extends Fragment {
         return fragment;
     }
 
-    //
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -59,9 +58,6 @@ public class LifeFragment extends Fragment {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recyclerView.setAdapter(timeAdapter);
         binding.tvEmpty.setVisibility(View.GONE);
-
-        binding.fab.setVisibility(View.GONE);
-
 
         return binding.getRoot();
     }

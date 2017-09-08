@@ -69,7 +69,7 @@ public class RecordLab {
      */
     public List<LRecord> getmLRecords() {
         List<LRecord> lRecords = new ArrayList<>();
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 5; i++) {
             LRecord lRecord = new LRecord("吃饭", new Date(), 30);
             lRecords.add(lRecord);
         }
@@ -102,10 +102,10 @@ public class RecordLab {
     /**
      * 删除记录
      *
-     * @param Record
+     * @param record
      */
-    public void deleteRecord(Record Record) {
-        String uuidString = Record.getId().toString();
+    public void deleteRecord(Record record) {
+        String uuidString = record.getId();
         mDataBase.delete(RecordTable.NAME,
                 RecordTable.Cols.UUID + " = ?", new String[]{uuidString});
     }

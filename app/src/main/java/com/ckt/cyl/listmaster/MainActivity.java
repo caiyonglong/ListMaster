@@ -9,11 +9,9 @@ import android.support.v7.widget.Toolbar;
 import com.ckt.cyl.listmaster.databinding.ActivityMainBinding;
 import com.ckt.cyl.listmaster.fragment.LifeFragment;
 import com.ckt.cyl.listmaster.fragment.ListFragment;
-import com.ckt.cyl.listmaster.fragment.NewRecordFragment;
 import com.roughike.bottombar.OnTabSelectListener;
 
-public class MainActivity extends SingleFragmentActivity
-        implements NewRecordFragment.CallBacks {
+public class MainActivity extends SingleFragmentActivity {
 
     ActivityMainBinding mBinding;
 
@@ -37,26 +35,22 @@ public class MainActivity extends SingleFragmentActivity
             @Override
             public void onTabSelected(@IdRes int tabId) {
                 FragmentManager fm = getSupportFragmentManager();
-                Fragment fragment = null;
-
+                Fragment fragment = fm.findFragmentById(R.id.fragment_container);
                 if (tabId == R.id.tab_today) {
-
                     fragment = ListFragment.newInstance();
                 } else if (tabId == R.id.tab_work) {
-
                     fragment = ListFragment.newInstance();
                 } else if (tabId == R.id.tab_life) {
 
                     fragment = LifeFragment.newInstance();
                 } else if (tabId == R.id.tab_other) {
-
                     fragment = LifeFragment.newInstance();
                 }
 
                 if (fragment != null)
                     fm.beginTransaction()
                             .replace(R.id.fragment_container, fragment,
-                                    tabId + "")
+                                    "fragment")
                             .commit();
 
             }
@@ -67,18 +61,7 @@ public class MainActivity extends SingleFragmentActivity
 
     @Override
     public void onBackPressed() {
-
         super.onBackPressed();
     }
 
-
-    @Override
-    public void onRecordUpdated() {
-
-        ListFragment listFragment = (ListFragment) getSupportFragmentManager()
-                .findFragmentByTag(R.id.tab_today+"");
-        if (listFragment != null) {
-            listFragment.updateUI();
-        }
-    }
 }

@@ -21,10 +21,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/rl_control"
-                android:layout_margin="8dp"
+                android:background="@color/grey_50"
                 android:gravity="start"
                 android:hint="新纪录"
-                android:padding="8dp"
+                android:padding="16dp"
                 android:textColor="#000"
                 android:textColorHint="@color/blue_grey_400" />
 
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_margin="8dp"
-                android:orientation="horizontal">
+                android:elevation="4dp">
 
                 <ImageButton
                     android:id="@+id/dialog_date_picker"
